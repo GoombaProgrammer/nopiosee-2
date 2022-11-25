@@ -103,6 +103,24 @@ class AssemblingTranslationQuestion {
     }
 }
 
+class AudioHearQuestion {
+    constructor(sentence, meaning) {
+        this.sentence = sentence;
+        this.meaning = meaning;
+    }
+
+    displayQuestion(handleNextQuestionMethod) {
+        return (
+            <div>
+                <AudioHearQuestionDisplay
+                    sentence={this.meaning}
+                    answer={this.sentence}
+                    handleNextQuestion={handleNextQuestionMethod} />
+            </div>
+        );
+    }
+}
+
 class WritingTranslationQuestion {
     constructor(sentence, translation) {
         this.sentence = sentence;
@@ -161,6 +179,49 @@ class LessonTopBar extends React.Component {
                     Question {questionNumber}
                 </div>
             </div>
+        );
+    }
+}
+
+class AudioAnswerFeedback extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this); // When submit clicked
+    }
+
+    handleClick() {
+        this.props.handleNextQuestion();
+    }
+
+    render() {
+        const userAnswer = this.props.userAnswer;
+        const correctAnswer = this.props.correctAnswer;
+        const answerWasSubmitted = this.props.answerWasSubmitted;
+
+        let feedbackArea;
+        if (!answerWasSubmitted) {
+            feedbackArea =
+                <div> <input type="submit" value="Submit Answer" /> </div>;
+        } else {
+            if (userAnswer !== correctAnswer) {
+                const audioElem = new Audio('audio_wrong.mp3');
+                audioElem.play();
+            }
+            else {
+                const audioElem = new Audio('audio_correct.mp3');
+                audioElem.play();
+            }
+            feedbackArea = (
+                <div>
+                    <div> {(userAnswer === correctAnswer) ? 'Correct\nMeaning: ' + this.props.meaningAnswer : 'Incorrect, it was ' + correctAnswer} </div>
+                    <div> <button onClick={this.handleClick}>Continue</button> </div>
+                </div>
+            );
+        }
+
+        return (
+            <section>{feedbackArea}</section>
         );
     }
 }
@@ -495,18 +556,95 @@ class WritingTranslationQuestionDisplay extends React.Component {
                         correctAnswer={answer.toLowerCase()}
                         handleNextQuestion={this.handleNextQuestion} />
                 </form>
-                <button onClick={() => document.getElementById('answ').value += 'ỹ'}>ỹ</button>
-                <button onClick={() => document.getElementById('answ').value += 'á'}>á</button>
-                <button onClick={() => document.getElementById('answ').value += 'à'}>à</button>
-                <button onClick={() => document.getElementById('answ').value += 'ú'}>ú</button>
-                <button onClick={() => document.getElementById('answ').value += 'ù'}>ù</button>
-                <button onClick={() => document.getElementById('answ').value += 'ơ'}>ơ</button>
-                <button onClick={() => document.getElementById('answ').value += 'ó'}>ó</button>
-                <button onClick={() => document.getElementById('answ').value += 'ò'}>ò</button>
-                <button onClick={() => document.getElementById('answ').value += 'í'}>í</button>
-                <button onClick={() => document.getElementById('answ').value += 'ì'}>ì</button>
+                <EasyButtons />
             </div>
         );
+    }
+}
+
+function playAudio(word) {
+    return new Promise((resolve) => {
+        let audio = new Audio(word.toLowerCase().replace("?", "").replace(",", "").replace("!", "").replace(".", "") + '.wav');
+        audio.play();
+        audio.addEventListener("ended", () => {
+            resolve();
+        });
+    })
+}
+
+class AudioHearQuestionDisplay extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { userAnswer: '', answerWasSubmitted: false };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNextQuestion = this.handleNextQuestion.bind(this);
+    }
+
+    handleNextQuestion() {
+        this.setState({ userAnswer: '', answerWasSubmitted: false });
+        this.props.handleNextQuestion();
+    }
+
+    handleChange(event) {
+        this.setState({ userAnswer: event.target.value });
+    }
+
+    handleSubmit(event) {
+        this.setState({ answerWasSubmitted: true });
+        event.preventDefault();
+    }
+    togglePlay = () => {
+        var splitted = this.props.answer.split(" ");
+        (async () => {
+            for (var word of splitted) {
+                await playAudio(word);
+            }
+        })();
+    }
+    render() {
+        const answer = this.props.answer;
+        const sentence = this.props.sentence;
+        return (
+            <div id="parent">
+                <form onSubmit={this.handleSubmit}>
+                    <button type="button" onClick={this.togglePlay}>Play</button>
+                    <h1>What do you hear?</h1>
+                    <div>
+                        <label>
+                            Write answer:
+                            <textarea value={this.state.answerText} onChange={this.handleChange} id="answ" rows="10" cols="50" />
+                        </label>
+                        <br />
+                    </div>
+                    <AudioAnswerFeedback
+                        userAnswer={this.state.userAnswer.toLowerCase()}
+                        answerWasSubmitted={this.state.answerWasSubmitted}
+                        correctAnswer={answer.toLowerCase()}
+                        meaningAnswer={sentence.toLowerCase()}
+                        handleNextQuestion={this.handleNextQuestion} />
+                </form>
+                <EasyButtons />
+            </div>
+        );
+    }
+}
+
+class EasyButtons extends React.Component {
+    render() {
+        return (<div>
+            <button onClick={() => document.getElementById('answ').value += 'ỹ'}>ỹ</button>
+            <button onClick={() => document.getElementById('answ').value += 'á'}>á</button>
+            <button onClick={() => document.getElementById('answ').value += 'à'}>à</button>
+            <button onClick={() => document.getElementById('answ').value += 'ú'}>ú</button>
+            <button onClick={() => document.getElementById('answ').value += 'ù'}>ù</button>
+            <button onClick={() => document.getElementById('answ').value += 'ơ'}>ơ</button>
+            <button onClick={() => document.getElementById('answ').value += 'ó'}>ó</button>
+            <button onClick={() => document.getElementById('answ').value += 'ò'}>ò</button>
+            <button onClick={() => document.getElementById('answ').value += 'í'}>í</button>
+            <button onClick={() => document.getElementById('answ').value += 'ì'}>ì</button>
+        </div>);
     }
 }
 
@@ -1105,8 +1243,8 @@ const S36Q2 = new MCVocabularyQuestion('You do not want one child but your man d
 const S36Q3 = new MCVocabularyQuestion('Are you a man or a woman?', ['Qi táy con nuơ or con nuơ phú?', 'Qi tay con nuo or con nuo phu', 'Qi táy con nuơ or con nuơ?', 'Qi ỹia con nuơ or con nuơ phú?'], 1);
 const S36Q4 = new AssemblingTranslationQuestion('You are not my mother, you are not my father, and you are not my child, but you are an adult.', ['Táy', 'qi', 'kong', 'mó', 'par', 'ỹi', 'táy', 'qi', 'kong', 'pá', 'par', 'ỹi', 'y', 'táy', 'qi', 'kong', 'chí', 'par', 'ỹi', 'mala', 'táy', 'qi', 'con', 'od', 'chí', 'nó', 'mâ', 'grê', 'par', 'ỹia', 'ỹia'], 'Táy qi kong mó par ỹi táy qi kong pá par ỹi y táy qi kong chí par ỹi mala táy qi con od chí.')
 const S36Q5 = new WritingTranslationQuestion('Are you me, are you you, are you.', 'Qi táy ỹia, qi táy táy, qi táy.');
-const S36Q6 = new MCVocabularyQuestion("Ca yo phú", ['The queen', 'The king', 'That king', 'That queen'], 1, true);
-
+const S36Q6 = new AudioHearQuestion("Táy qi kong mó par ỹi táy qi kong pá par ỹi y táy qi kong chí par ỹi mala táy qi con od chí", 'You are not my mother, you are not my father, and you are not my child, but you are an adult.');
+// end long sentences 2
     
 const SIMPLE_WORDS = new LessonInformation('Simple Words', [SQ1, SQ2, SQ3, SQ4, SQ5, SQ6]);
 const SIMPLE_WORDS_2 = new LessonInformation('Simple Words 2', [S2Q1, S2Q2, S2Q3, S2Q4, S2Q5, S2Q6]);
@@ -1150,7 +1288,8 @@ const lessons = [SIMPLE_WORDS, SIMPLE_WORDS_2, FAMILY, FAMILY_2, FOOD, FOOD_2, S
     GENERAL_SENTENCES_2, SIMPLE_WORDS_3, GENERAL_SENTENCES_3, GENERAL_SENTENCES_4, HARD_SENTENCES,
     HARD_SENTENCES_2, DAILY_LIFE, GENERAL_ANSWERS, GENERAL_ANSWERS_2, GREETINGS, GREETINGS_2, LANGUAGES,
     LANGUAGES_2, NUMBERS_1, NUMBERS_2, NUMBERS_3, PEOPLE, CLOTHES, ANIMALS, COLORS, FOOD_3, HARD_SENTENCES_3,
-    HARD_SENTENCES_4, COMPUTERS, HARD_SENTENCES_5, HARD_SENTENCES_6, LONG_SENTENCES, LONG_SENTENCES_2];
+    HARD_SENTENCES_4, COMPUTERS, HARD_SENTENCES_5, HARD_SENTENCES_6, LONG_SENTENCES, LONG_SENTENCES_2
+    ];
 ReactDOM.render(
     <AppDisplay />,
     document.getElementById('root')
