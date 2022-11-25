@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import { nanoid } from 'nanoid';
 import './index.css';
@@ -554,11 +554,16 @@ class PairsQuestionDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = { firstLanguageWordsMatched: [], firstLanguageSelection: '', targetLanguageSelection: '' };
-
         this.handleNextQuestion = this.handleNextQuestion.bind(this);
         this.handleContinue = this.handleContinue.bind(this);
         this.handleWordSelection = this.handleWordSelection.bind(this);
     }
+
+    componentDidUpdate() {
+        if (document.getElementById('autocontinue')) {
+            document.getElementById('autocontinue').click();
+        }
+    };
 
     handleNextQuestion() {
         this.setState({ firstLanguageWordsMatched: [], firstLanguageSelection: '', targetLanguageSelection: '' });
@@ -629,7 +634,7 @@ class PairsQuestionDisplay extends React.Component {
         if (matchCorrect && !allMatched) {
             answerFeedbackArea = (<div>
                 <p>Match correct!</p>
-                <button name='correctContinue' onClick={this.handleContinue}>Click to continue</button>
+                <button name='correctContinue' id='autocontinue' onClick={this.handleContinue}>Click to continue</button>
             </div>);
         }
         if (matchIncorrect) {
@@ -644,6 +649,8 @@ class PairsQuestionDisplay extends React.Component {
                 <button onClick={this.handleNextQuestion}>Click to continue</button>
             </div>);
         }
+        
+        
 
         return (
             <div>
@@ -688,6 +695,8 @@ class LessonDisplay extends React.Component {
                 <div>
                     {currentQuestionDisplay}
                 </div>
+                {
+                    eval("if (document.getElementById('autocontinue'))document.getElementById('autocontinue').click();") }
             </div>
         );
     }
@@ -1090,7 +1099,15 @@ const S35Q4 = new MCVocabularyQuestion('You do not want a computer, and you do n
 const S35Q5 = new AssemblingTranslationQuestion('You do not want a computer, and you do not want a phone.', ['cor', 'kong', 'muõ', 'con', 'computer', 'mala', 'cor', 'kong', 'muõ', 'con', 'fón', 'ỹia', 'ghõ', 'táy', 'her', 'fono', 'corzo', 'corzobe', 'un', 'Táy', 'y', 'yo'], 'Táy cor kong muõ con computer y táy cor kong muõ con fón.');
 const S35Q6 = new WritingTranslationQuestion('Are you me, are you you, are you.', 'Qi táy ỹia, qi táy táy, qi táy.');
 // end long sentences
+// long sentences 2
+const S36Q1 = new AssemblingTranslationQuestion("I do not have a mother and a father, but I do want a mother and a father.", ['Ỹia', 'cor', 'kong', 'yú', 'con', 'mó', 'y', 'con', 'pá', 'mala', 'ỹia', 'cor', 'muõ', 'con', 'mó', 'y', 'con', 'pá', 'ỹia', 'ghõ', 'lû', 'her', 'fono', 'corzo', 'corzobe', 'un', 'pá', 'ỹia', 'chí'], 'Ỹia cor kong yú con mó y con pá mala ỹia cor muõ con mó y con pá.');
+const S36Q2 = new MCVocabularyQuestion('You do not want one child but your man does want three children.', ['Táy cor kong muõ unas chí mala nuơ par táy does muõ trê chía', 'Táy cor kong muõ unas chí mala táy nuơ does muõ trê chía', 'Ỹia cor kong muõ unas chí mala táy nuơ does muõ trê chía', 'Ỹia cor kong muõ unas chí mala nuơ par táy does muõ trê chía'], 1)
+const S36Q3 = new MCVocabularyQuestion('Are you a man or a woman?', ['Qi táy con nuơ or con nuơ phú?', 'Qi tay con nuo or con nuo phu', 'Qi táy con nuơ or con nuơ?', 'Qi ỹia con nuơ or con nuơ phú?'], 1);
+const S36Q4 = new AssemblingTranslationQuestion('You are not my mother, you are not my father, and you are not my child, but you are an adult.', ['Táy', 'qi', 'kong', 'mó', 'par', 'ỹi', 'táy', 'qi', 'kong', 'pá', 'par', 'ỹi', 'y', 'táy', 'qi', 'kong', 'chí', 'par', 'ỹi', 'mala', 'táy', 'qi', 'con', 'od', 'chí', 'nó', 'mâ', 'grê', 'par', 'ỹia', 'ỹia'], 'Táy qi kong mó par ỹi táy qi kong pá par ỹi y táy qi kong chí par ỹi mala táy qi con od chí.')
+const S36Q5 = new WritingTranslationQuestion('Are you me, are you you, are you.', 'Qi táy ỹia, qi táy táy, qi táy.');
+const S36Q6 = new MCVocabularyQuestion("Ca yo phú", ['The queen', 'The king', 'That king', 'That queen'], 1, true);
 
+    
 const SIMPLE_WORDS = new LessonInformation('Simple Words', [SQ1, SQ2, SQ3, SQ4, SQ5, SQ6]);
 const SIMPLE_WORDS_2 = new LessonInformation('Simple Words 2', [S2Q1, S2Q2, S2Q3, S2Q4, S2Q5, S2Q6]);
 const FAMILY = new LessonInformation('Family', [S3Q1, S3Q2, S3Q3, S3Q4, S3Q5, S3Q6]);
@@ -1126,13 +1143,14 @@ const COMPUTERS = new LessonInformation('Computers', [S32Q1, S32Q2, S32Q3, S32Q4
 const HARD_SENTENCES_5 = new LessonInformation('Hard Sentences 5', [S33Q1, S33Q2, S33Q3, S33Q4, S33Q5, S33Q6]);
 const HARD_SENTENCES_6 = new LessonInformation('Hard Sentences 6', [S34Q1, S34Q2, S34Q3, S34Q4, S34Q5, S34Q6]);
 const LONG_SENTENCES = new LessonInformation('Long Sentences', [S35Q1, S35Q2, S35Q3, S35Q4, S35Q5, S35Q6]);
+const LONG_SENTENCES_2 = new LessonInformation('Long Sentences 2', [S36Q1, S36Q2, S36Q3, S36Q4, S36Q5, S36Q6]);
 
 var CURRENT_LESSON = new LessonInformation('NULL', []);
 const lessons = [SIMPLE_WORDS, SIMPLE_WORDS_2, FAMILY, FAMILY_2, FOOD, FOOD_2, SIMPLE_SENTENCES, GENERAL_SENTENCES,
     GENERAL_SENTENCES_2, SIMPLE_WORDS_3, GENERAL_SENTENCES_3, GENERAL_SENTENCES_4, HARD_SENTENCES,
     HARD_SENTENCES_2, DAILY_LIFE, GENERAL_ANSWERS, GENERAL_ANSWERS_2, GREETINGS, GREETINGS_2, LANGUAGES,
     LANGUAGES_2, NUMBERS_1, NUMBERS_2, NUMBERS_3, PEOPLE, CLOTHES, ANIMALS, COLORS, FOOD_3, HARD_SENTENCES_3,
-    HARD_SENTENCES_4, COMPUTERS, HARD_SENTENCES_5, HARD_SENTENCES_6, LONG_SENTENCES];
+    HARD_SENTENCES_4, COMPUTERS, HARD_SENTENCES_5, HARD_SENTENCES_6, LONG_SENTENCES, LONG_SENTENCES_2];
 ReactDOM.render(
     <AppDisplay />,
     document.getElementById('root')
