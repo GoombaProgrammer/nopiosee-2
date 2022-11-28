@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import { nanoid } from 'nanoid';
 import './index.css';
+import { useCookies } from 'react-cookie';
 var seedrandom = require('seedrandom');
 var audio;
 class MCVocabularyQuestion {
@@ -918,6 +919,8 @@ class LessonDisplay extends React.Component {
 
     render() {
         if ((this.state.questionNumber - 1) === CURRENT_LESSON.questionsArray.length) {
+            var oldValue = getCookie("level");
+            setCookie("level", ++oldValue, 1);
             return (<AppDisplay />);
         }
         const currentQuestion = CURRENT_LESSON.questionsArray[(this.state.questionNumber - 1)];
@@ -949,23 +952,50 @@ class MenusTopBar extends React.Component {
     }
 }
 
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
 class LessonSelectionDisplay extends React.Component {
     constructor(props) {
         super(props);
-
+        if (getCookie("level") == "") {
+            document.cookie = "level=0";
+        }
         this.handleClickLesson = this.handleClickLesson.bind(this);
     }
 
     handleClickLesson(event) {
-        this.props.onNavigationSelect('lesson', event.target.name);
+        if (getCookie('level') >= event.target.id) { 
+            this.props.onNavigationSelect('lesson', event.target.name);
+        }
     }
 
     render() {
         return (
             <div>
                 <div>Select Lesson</div>
-                {lessons.map((element) =>
-                    <div><button onClick={this.handleClickLesson} name={element.name.replaceAll(" ", "_").toUpperCase()}>{element.name}</button></div>
+                {lessons.map((element, i) =>
+                    <div><button disabled={(getCookie('level') < i)} onClick={this.handleClickLesson} id={i} name={element.name.replaceAll(" ", "_").toUpperCase()}>{element.name}</button></div>
                 )}
             </div>
         );
