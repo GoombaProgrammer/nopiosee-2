@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Qualleish": {
-      "commandName": "Project",
-      "commandLineArgs": "oneliner"
+      "commandName": "Project"
     }
   }
 }

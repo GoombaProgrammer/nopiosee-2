@@ -316,25 +316,28 @@ else
                     continue;
                 }
             }
-            if (tots[i].EndsWith("s") && tots[i].Length != 2 && !tots[i].EndsWith("ss") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 1)))  // Multiple
+            if (!Lexer.words.ContainsKey(tots[i]))
             {
-                output += Lexer.words[tots[i].Substring(0, tots[i].Length - 1)].Item1 + "a" + " ";
-                continue;
-            }
-            if (tots[i].EndsWith("r") && !tots[i].EndsWith("rr") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 1)))  // Multiple
-            {
-                output += Lexer.words[tots[i].Substring(0, tots[i].Length - 1)].Item1 + "o" + " ";
-                continue;
-            }
-            if (tots[i].EndsWith("rs") && !tots[i].EndsWith("rsrs") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 2)))  // Multiple
-            {
-                output += Lexer.words[tots[i].Substring(0, tots[i].Length - 2)].Item1 + "oa" + " ";
-                continue;
-            }
-            if (tots[i].EndsWith("ly") && !tots[i].EndsWith("lyly") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 2)))  // Multiple
-            {
-                output += Lexer.words[tots[i].Substring(0, tots[i].Length - 2)].Item1 + "e" + " ";
-                continue;
+                if (tots[i].EndsWith("s") && tots[i].Length != 2 && !tots[i].EndsWith("ss") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 1)))  // Multiple
+                {
+                    output += Lexer.words[tots[i].Substring(0, tots[i].Length - 1)].Item1 + "a" + " ";
+                    continue;
+                }
+                if (tots[i].EndsWith("r") && !tots[i].EndsWith("rr") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 1)))  // Multiple
+                {
+                    output += Lexer.words[tots[i].Substring(0, tots[i].Length - 1)].Item1 + "o" + " ";
+                    continue;
+                }
+                if (tots[i].EndsWith("rs") && !tots[i].EndsWith("rsrs") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 2)))  // Multiple
+                {
+                    output += Lexer.words[tots[i].Substring(0, tots[i].Length - 2)].Item1 + "oa" + " ";
+                    continue;
+                }
+                if (tots[i].EndsWith("ly") && !tots[i].EndsWith("lyly") && Lexer.words.ContainsKey(tots[i].Substring(0, tots[i].Length - 2)))  // Multiple
+                {
+                    output += Lexer.words[tots[i].Substring(0, tots[i].Length - 2)].Item1 + "e" + " ";
+                    continue;
+                }
             }
             if (!Lexer.words.ContainsKey(tots[i]))
             {
