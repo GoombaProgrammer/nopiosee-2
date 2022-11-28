@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import { nanoid } from 'nanoid';
 import './index.css';
+var seedrandom = require('seedrandom');
 var audio;
 class MCVocabularyQuestion {
     constructor(phrase, answerOptions, correctAnswer, qualleish = false) {
@@ -162,7 +163,95 @@ class LessonInformation {
     constructor(lessonName, questionsArray) {
         this.lessonName = lessonName;
         this.name = this.lessonName;
+        var nouns, adjectives, adverbs, words, things;
+        var nounseng, adjectiveseng, adverbseng, wordseng, thingseng;
+        //
+        nouns = ["fogel", "nuơ phú", "nuơ", "yo", "yo phú", "chí", "od chí", "hóro", "chía", "fogela", 'ỹia', 'táy'];
+        adjectives = ["casa", "hanya"];
+        adverbs = ["ghõ", "corzo", "es", "muõ", "es kong"];
+        things = ['ỹia', 'táy', 'nú unas', 'ca húna'];
+        words = ["con", 'ca'];
+        //
+        nounseng = ["bird", "woman", "man", "king", "queen", "child", "adult", "horse", "children", "birds", 'i', 'you'];
+        adjectiveseng = ["cool", "amazing"];
+        adverbseng = ["hates", "loves", "is", "wants", "is not"];
+        thingseng = ['me', 'you', 'no one', 'the dog'];
+        wordseng = ["a(n)", "the"]
         this.questionsArray = questionsArray;
+        //var rand0, rand1, rand2, rand3, rand4, rand5
+        //this.questionsArray = [];
+        //for (var i = 0; i < 6; i++) {
+        //    var rng = seedrandom(this.lessonName + i);
+        //    var a = -1;
+        //    a++;
+        //    var rnag = seedrandom(this.lessonName + (i + a));
+        //    rand0 = Math.floor(rnag() * words.length);
+        //    rand1 = Math.floor(rnag() * adjectives.length);
+        //    rand2 = Math.floor(rnag() * nouns.length);
+        //    rand3 = Math.floor(rnag() * adverbs.length);
+        //    rand4 = Math.floor(rnag() * things.length);
+        //    rand5 = Math.floor(rnag() * adverbs.length);
+        //    var rand7 = Math.floor(rng() * 3);
+
+        //    if (rand0 === 0 && nouns[rand2].endsWith("a")) {
+        //        rand0 = 1;
+        //    }
+
+        //    rand0 = Math.min(rand0, words.length);
+        //    rand1 = Math.min(rand1, adjectives.length);
+        //    rand2 = Math.min(rand2, nouns.length);
+        //    rand3 = Math.min(rand3, adverbs.length);
+        //    rand4 = Math.min(rand4, things.length);
+        //    rand5 = Math.min(rand5, adverbs.length);
+
+        //    //                var randCol = [rand1,rand2,rand3,rand4,rand5];
+        //    //                var i = randGen();
+        //    if (rand7 < 2) {        // if < 2 add another word after
+        //        var content = words[rand0] + " " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + " " + things[rand4];
+        //        var content_w1 = words[rand0] + " " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + " " + adjectives[Math.min(rand4, adjectives.length)];
+        //        var content_w2 = words[rand0] + " " + nouns[Math.min(rand1, nouns.length)] + " " + nouns[rand2] + " " + adverbs[Math.min(rand3, adverbs.length)] + " " + adverbs[rand5];
+        //        var content_w3 = words[rand0] + " " + adjectives[rand2] + " " + nouns[rand1] + " " + nouns[rand3] + " " + things[rand4];
+        //        var contenteng = wordseng[rand0] + " " + adjectiveseng[rand1] + " " + nounseng[rand2] + " " + adverbseng[rand3] + " " + thingseng[rand4];
+        //        if (words[rand0] === "con") {
+        //            contenteng = ((adjectiveseng[rand1].startsWith("a") || adjectiveseng[rand1].startsWith("i") || adjectiveseng[rand1].startsWith("e") || adjectiveseng[rand1].startsWith("o") || adjectiveseng[rand1].startsWith("u")) ? "an" : "a") + " " + adjectiveseng[rand1] + " " + nounseng[rand2] + " " + adverbseng[rand3] + " " + thingseng[rand4];
+        //        }
+        //        // Random for index
+        //        var randItems = Math.floor(rng() * 6);
+        //        if (randItems === 1) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content, content_w1, content_w2, content_w3], 1));
+        //        } else if (randItems === 2) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content_w1, content, content_w2, content_w3], 2));
+        //        } else if (randItems === 3) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content_w1, content_w2, content, content_w3], 3));
+        //        } else if (randItems === 4) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content_w1, content_w2, content_w3, content], 4));
+        //        } else if (randItems === 5) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content, content_w2, content_w1, content_w3], 1));
+        //        }
+        //    } else {
+        //        var content = words[rand0] + " " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3];
+        //        var content_w1 = words[rand0] + " " + adjectives[rand1] + " " + words[Math.min(rand2, words.length)] + " " + adverbs[rand3];
+        //        var content_w2 = words[rand0] + " " + nouns[Math.min(rand0, nouns.length)] + " " + nouns[Math.min(rand2, nouns.length)] + " " + adverbs[rand3];
+        //        var content_w3 = words[rand0] + " " + adjectives[Math.min(rand2, adjectives.length)] + " " + nouns[Math.min(rand1, nouns.length)] + " " + adverbs[rand3];
+        //        var contenteng = wordseng[rand0] + " " + adjectiveseng[rand1] + " " + nounseng[rand2] + " " + adverbseng[rand3];
+        //        if (words[rand0] === "con") {
+        //            contenteng = ((adjectiveseng[rand1].startsWith("a") || adjectiveseng[rand1].startsWith("i") || adjectiveseng[rand1].startsWith("e") || adjectiveseng[rand1].startsWith("o") || adjectiveseng[rand1].startsWith("u")) ? "an" : "a") + " " + adjectiveseng[rand1] + " " + nounseng[rand2] + " " + adverbseng[rand3];
+        //        }
+        //        // Random for index
+        //        var randItems = Math.floor(rng() * 6);
+        //        if (randItems === 1) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content, content_w1, content_w2, content_w3], 1));
+        //        } else if (randItems === 2) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content_w1, content, content_w2, content_w3], 2));
+        //        } else if (randItems === 3) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content_w1, content_w2, content, content_w3], 3));
+        //        } else if (randItems === 4) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content_w1, content_w2, content_w3, content], 4));
+        //        } else if (randItems === 5) {
+        //            this.questionsArray.push(new MCVocabularyQuestion(contenteng, [content, content_w2, content_w1, content_w3], 1));
+        //        }
+        //    }
+        //}
     }
 }
 
@@ -436,7 +525,7 @@ class AssemblingTranslationQuestionDisplay extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clicked = [];
         this.done = 0;
-;
+        ;
         this.handleNextQuestion = this.handleNextQuestion.bind(this);
     }
 
@@ -564,6 +653,9 @@ class WritingTranslationQuestionDisplay extends React.Component {
 
 function playAudio(word) {
     return new Promise((resolve) => {
+        if (word === "con") {   // Windows does not like "con" as filename
+            word = "__con";
+        }
         let audio = new Audio(word.toLowerCase().replace("?", "").replace(",", "").replace("!", "").replace(".", "") + '.wav');
         audio.play();
         audio.addEventListener("ended", () => {
@@ -640,10 +732,16 @@ class EasyButtons extends React.Component {
             <button onClick={() => document.getElementById('answ').value += 'ú'}>ú</button>
             <button onClick={() => document.getElementById('answ').value += 'ù'}>ù</button>
             <button onClick={() => document.getElementById('answ').value += 'ơ'}>ơ</button>
+            <button onClick={() => document.getElementById('answ').value += 'ô'}>ô</button>
+            <button onClick={() => document.getElementById('answ').value += 'õ'}>õ</button>
             <button onClick={() => document.getElementById('answ').value += 'ó'}>ó</button>
             <button onClick={() => document.getElementById('answ').value += 'ò'}>ò</button>
             <button onClick={() => document.getElementById('answ').value += 'í'}>í</button>
             <button onClick={() => document.getElementById('answ').value += 'ì'}>ì</button>
+            <button onClick={() => document.getElementById('answ').value += 'ê'}>ê</button>
+            <button onClick={() => document.getElementById('answ').value += 'é'}>é</button>
+            <button onClick={() => document.getElementById('answ').value += 'è'}>è</button>
+            <button onClick={() => document.getElementById('answ').value += 'ñ'}>ñ</button>
         </div>);
     }
 }
@@ -787,8 +885,8 @@ class PairsQuestionDisplay extends React.Component {
                 <button onClick={this.handleNextQuestion}>Click to continue</button>
             </div>);
         }
-        
-        
+
+
 
         return (
             <div>
@@ -834,7 +932,7 @@ class LessonDisplay extends React.Component {
                     {currentQuestionDisplay}
                 </div>
                 {
-                    eval("if (document.getElementById('autocontinue'))document.getElementById('autocontinue').click();") }
+                    eval("if (document.getElementById('autocontinue'))document.getElementById('autocontinue').click();")}
             </div>
         );
     }
@@ -1152,7 +1250,7 @@ const S24Q6 = new AssemblingTranslationQuestion('Six', ['sê', 'ula', 'dor', 'do
 // people
 const S25Q1 = new MCVocabularyQuestion('I hate him', ['Ỹia ghõ hat', 'Ỹia hat par ell', 'Ỹia ghõ par ell', 'Ỹia gõ par ell'], 3);
 const S25Q2 = new MCVocabularyQuestion('I love her', ['Ỹia ghõ corzo', 'Ỹia corzo ela', 'Ỹia corzo par ela', 'Ỹia par ela corzo'], 4);
-const S25Q3 = new AssemblingTranslationQuestion('I hate him', ['Ỹia', 'ghõ', 'hat', 'him', 'Ỹia', 'ghõ', 'lû', 'her'], 'Ỹia ghõ him.');
+const S25Q3 = new AssemblingTranslationQuestion('I hate him', ['Ỹia', 'ghõ', 'hat', 'him', 'Ỹia', 'ghõ', 'lû', 'her', 'par', 'ell'], 'Ỹia ghõ par ell.');
 const S25Q4 = new MCVocabularyQuestion('I love her', ['Ỹia ghõ corzo', 'Ỹia corzo ela', 'Ỹia corzo par ela', 'Ỹia par ela corzo'], 4);
 const S25Q5 = new AssemblingTranslationQuestion('I love her', ['Ỹia', 'ghõ', 'corzo', 'her', 'par', 'ela', 'lû', 'him'], 'Ỹia par ela corzo.');
 const S25Q6 = new MCVocabularyQuestion('I hate him', ['Ỹia ghõ hat', 'Ỹia hat par ell', 'Ỹia ghõ par ell', 'Ỹia gõ par ell'], 3);
@@ -1184,7 +1282,7 @@ const S28Q6 = new MCVocabularyQuestion('I like red', ['Táy tigh rê', 'Ỹia ti
 // food 3
 const S29Q1 = new MCVocabularyQuestion('I eat bread', ['Ỹia an bana mí', 'Ỹia an bana', 'Ỹia an banh mí', 'Ỹia an bana mi'], 1);
 const S29Q2 = new MCVocabularyQuestion('I eat meat', ['Ỹia an mit', 'Ỹia an fúd mit', 'Ỹia an mita', 'Ỹia an meat'], 2);
-const S29Q3 = new AssemblingTranslationQuestion('I eat bread', ['Ỹia', 'an', 'bana', 'mí', 'ỹia', 'ghõ', 'lû', 'her'], 'Ỹia an bana mí');
+const S29Q3 = new AssemblingTranslationQuestion('I eat bread', ['Ỹia', 'an', 'bana', 'mí', 'ỹia', 'ghõ', 'lû', 'her'], 'Ỹia an bana mí.');
 const S29Q4 = new MCVocabularyQuestion('I like eating meat', ['Ỹia tigh an fúd mit', 'Ỹia tigh aning fúd mit', 'An mit', 'Tigh an mit'], 1);
 const S29Q5 = new AssemblingTranslationQuestion('I like eating meat', ['Ỹia', 'tigh', 'an', 'fúd', 'mit', 'ỹia', 'ghõ', 'lû', 'her'], 'Ỹia tigh an fúd mit.');
 const S29Q6 = new MCVocabularyQuestion('I eat bread', ['Ỹia an bana mí', 'Ỹia an bana', 'Ỹia an banh mí', 'Ỹia an bana mi'], 1);
@@ -1193,9 +1291,9 @@ const S29Q6 = new MCVocabularyQuestion('I eat bread', ['Ỹia an bana mí', 'Ỹ
 const S30Q1 = new MCVocabularyQuestion('I have a dog and a cat', ['Ỹia yú con húna y con kaya', 'Ỹia yú con húna kong con kaya', 'Ỹia yú con húna kong kaya', 'Ỹia yú con kaya y húna'], 1);
 const S30Q2 = new AssemblingTranslationQuestion('I like eating meat and bread', ['Ỹia', 'tigh', 'an', 'fúd', 'mit', 'ỹia', 'ghõ', 'lû', 'her', 'y', 'bana', 'mí'], 'Ỹia tigh an fúd mit y bana mí.');
 const S30Q3 = new MCVocabularyQuestion('I like eating meat and bread', ['Ỹia tigh an fúd mit y bana mí', 'Ỹia tigh an fúd mit y bana', 'Ỹia tigh an fúd mit y bana mi', 'Ỹia tigh an fúd mit y bana mí'], 1);
-const S30Q4 = new AssemblingTranslationQuestion('I have a dog and a cat', ['Ỹia', 'yú', 'con', 'húna', 'ỹia', 'ghõ', 'lû', 'her', 'y', 'Con', 'húna'], 'Ỹia yú con húna y con kaya.');
+const S30Q4 = new AssemblingTranslationQuestion('I have a dog and a cat', ['Ỹia', 'yú', 'con', 'húna', 'ỹia', 'ghõ', 'lû', 'her', 'y', 'con', 'kaya', 'húna'], 'Ỹia yú con húna y con kaya.');
 const S30Q5 = new MCVocabularyQuestion('I am not you, but I am.', ['Ỹia esta kong táy, mala ỹia esta.', 'Ỹia esta kong ỹia, mala ỹia esta.', 'Ỹia esta táy, mala ỹia esta.', 'Táy qi kong táy, mala ỹia esta'], 1);
-const S30Q6 = new AssemblingTranslationQuestion('I have a dog and a cat', ['Ỹia', 'yú', 'con', 'kaya', 'ỹia', 'ghõ', 'lû', 'her', 'y', 'Con', 'húna'], 'Ỹia yú con húna y con kaya.');
+const S30Q6 = new AssemblingTranslationQuestion('I have a dog and a cat', ['Ỹia', 'yú', 'con', 'kaya', 'ỹia', 'ghõ', 'lû', 'her', 'y', 'con', 'húna'], 'Ỹia yú con húna y con kaya.');
 // end hard sentences 3
 // hard sentences 4
 const S31Q1 = new MCVocabularyQuestion('I am not you, but I am.', ['Ỹia esta kong táy, mala ỹia esta.', 'Ỹia esta kong ỹia, mala ỹia esta.', 'Ỹia esta táy, mala ỹia esta.', 'Táy qi kong táy, mala ỹia esta'], 1);
@@ -1243,9 +1341,104 @@ const S36Q2 = new MCVocabularyQuestion('You do not want one child but your man d
 const S36Q3 = new MCVocabularyQuestion('Are you a man or a woman?', ['Qi táy con nuơ or con nuơ phú?', 'Qi tay con nuo or con nuo phu', 'Qi táy con nuơ or con nuơ?', 'Qi ỹia con nuơ or con nuơ phú?'], 1);
 const S36Q4 = new AssemblingTranslationQuestion('You are not my mother, you are not my father, and you are not my child, but you are an adult.', ['Táy', 'qi', 'kong', 'mó', 'par', 'ỹi', 'táy', 'qi', 'kong', 'pá', 'par', 'ỹi', 'y', 'táy', 'qi', 'kong', 'chí', 'par', 'ỹi', 'mala', 'táy', 'qi', 'con', 'od', 'chí', 'nó', 'mâ', 'grê', 'par', 'ỹia', 'ỹia'], 'Táy qi kong mó par ỹi táy qi kong pá par ỹi y táy qi kong chí par ỹi mala táy qi con od chí.')
 const S36Q5 = new WritingTranslationQuestion('Are you me, are you you, are you.', 'Qi táy ỹia, qi táy táy, qi táy.');
-const S36Q6 = new AudioHearQuestion("Táy qi kong mó par ỹi táy qi kong pá par ỹi y táy qi kong chí par ỹi mala táy qi con od chí", 'You are not my mother, you are not my father, and you are not my child, but you are an adult.');
+const S36Q6 = new AudioHearQuestion("Táy qi kong con od chí.", 'You are not an adult.');
 // end long sentences 2
-    
+// birthday
+const S37Q1 = new MCVocabularyQuestion('Fèlis od bi', ['Happy birthday', 'Merry christmas', 'Happy halloween', 'Merry birthday'], 1, true);
+const S37Q2 = new AudioHearQuestion('Fèlis od bi.', 'Happy birthday.');
+const S37Q3 = new AssemblingTranslationQuestion('You are now an adult.', ['Táy', 'qi', 'usho', 'con', 'od', 'chí', 'Ỹia'], 'Táy qi usho con od chí.');
+const S37Q4 = new AudioHearQuestion('Táy muõ con chí.', 'You want a child.');
+const S37Q5 = new AudioHearQuestion('Táy qi usho con od chí.', 'You are now an adult.');
+const S37Q6 = new AudioHearQuestion('Táy qi kong con od chí.', 'You are not an adult.');
+// end birthday
+// time
+const S38Q1 = new MCVocabularyQuestion('What time is it?', ['What tóy es eso?', 'What tóy es es', 'What tóy eso es?', 'What tói es eso'], 1);
+const S38Q2 = new AudioHearQuestion('What tóy es eso?', 'What time is it?');
+const S38Q3 = new AssemblingTranslationQuestion('Ten minutes remaining.', ['Dê', 'tôia', 'xao', 'qá', 'tói', 'es', 'eso', 'Ỹia'], 'Dê tôia xao qá.');
+const S38Q4 = new AudioHearQuestion('Dê tôia xao qá.', 'Ten minutes remaining.');
+const S38Q5 = new MCVocabularyQuestion('Are you at the house?', ['Qi táy ñ bi?', 'Qi táy ñ casa', 'Qi táy ñ bi pàl?', 'Qi táy en bi pàl'], 3);
+const S38Q6 = new AudioHearQuestion('Dê tôia xao qá.', 'Ten minutes remaining.');
+// end time
+// difficult sentences
+// - Are you at the house
+const S39Q1 = new AudioHearQuestion("Qi táy ñ bi pàl", "Are you at the house");
+const S39Q2 = new AudioHearQuestion("Táy qi kong con od chí", "You are not an adult");
+const S39Q3 = new AudioHearQuestion("Táy qi usho con od chí", "You are now an adult");
+const S39Q4 = new AudioHearQuestion("Táy muõ con chí", "You want a child");
+const S39Q5 = new AudioHearQuestion("Táy cor kong muõ con chí", "You do not want a child");
+const S39Q6 = new AudioHearQuestion("Táy cor kong muõ unas chí mala nuơ par táy does muõ trê chía", "You do not want one child but your man does want three children");
+// end difficult sentences
+// useful sentences
+// - Are you an adult
+const S40Q1 = new AssemblingTranslationQuestion('Are you an adult?', ['Qi', 'táy', 'con', 'od', 'chí', 'Ỹia', 'Táy', 'qi', 'yo'], 'Qi táy con od chí.');
+// - Do you not want a child
+const S40Q2 = new AudioHearQuestion('Cor táy kong muõ con chí?', 'Do you not want a child?');
+// - Do you hate me?
+const S40Q3 = new AssemblingTranslationQuestion('Do you hate me?', ['Cor', 'táy', 'ghõ', 'mó', 'Ỹia', 'Táy', 'qi', 'yo', 'ỹia'], 'Cor táy ghõ ỹia.');
+// - Do you want a child?
+const S40Q4 = new AudioHearQuestion('Cor táy muõ con chí?', 'Do you want a child?');
+// - Is the king the queen?
+const S40Q5 = new AssemblingTranslationQuestion('Is the king the queen?', ['Es', 'ca', 'yo', 'ca', 'yo phú', 'Ỹia', 'Táy', 'qi', 'yo', 'ỹia', 'phú', 'cor'], 'Es ca yo ca yo phú.');
+// - Are you not at the house?
+const S40Q6 = new AudioHearQuestion('Qi táy kong ñ bi pàl', 'Are you not at the house?');
+// end useful sentences
+// useful sentences 2
+// - Are you not an adult?
+const S41Q1 = new AssemblingTranslationQuestion('Are you not an adult?', ['Qi', 'táy', 'kong', 'con', 'od', 'chí', 'Ỹia', 'Táy', 'qi', 'yo'], 'Qi táy kong con od chí.');
+// - Do you want one child?
+const S41Q2 = new AudioHearQuestion('Cor táy muõ unas chí?', 'Do you want one child?');
+// - Do you want three children?
+const S41Q3 = new AudioHearQuestion('Cor táy muõ trê chía?', 'Do you want three children?');
+// - Are you a child?
+const S41Q4 = new AssemblingTranslationQuestion('Are you a child?', ['Qi', 'táy', 'con', 'Ỹia', 'Táy', 'qi', 'yo', 'chí', 'chí', 'chí'], 'Qi táy con chí.');
+// - Do you want an adult?
+const S41Q5 = new AudioHearQuestion('Cor táy muõ con od chí?', 'Do you want an adult?');
+// - Are you an adult?
+const S41Q6 = new AudioHearQuestion('Qi táy con od chí?', 'Are you an adult?');
+// end useful sentences 2
+// food 4
+// - The egg
+const S42Q1 = new MCVocabularyQuestion('The egg', ['Ca eg', 'Ca tôg', 'Ca ôg', 'Ca egg'], 2);
+// - The banana
+const S42Q2 = new MCVocabularyQuestion('The banana', ['Ca tung', 'Ca tong', 'Ca chung', 'Ca ching'], 1);
+const S42Q3 = new PairsQuestion(['Egg', 'Apple', 'Banana', 'Pear'], ['Tôg', 'Ápol', 'Tung', 'Pír'],
+    new Map([['Egg', 'Tôg'], ['Apple', 'Ápol'], ['Banana', 'Tung'], ['Pear', 'Pír']]));
+// - The pear
+const S42Q4 = new MCVocabularyQuestion('The pear', ['Ca pír', 'Ca pí', 'Ca píra', 'Ca píe'], 1);
+// - The apple
+const S42Q5 = new MCVocabularyQuestion('The apple', ['Ca ápol', 'Ca ápole', 'Ca tuo', 'Ca noug'], 1);
+// - Robber
+const S42Q6 = new MCVocabularyQuestion('Robber', ['Ré', 'Ré le', 'Ré nuo', 'Ré nuơ'], 4);
+// end food 4
+// friends
+// - The friend
+const S43Q1 = new MCVocabularyQuestion('The friend', ['Ca bâng', 'Ca bânga', 'Ca bâng nuo', 'Ca bâng nuơ'], 1);
+// - My friend
+const S43Q2 = new AssemblingTranslationQuestion('My friend', ['Táy', 'bâng', 'ỹi', 'Táy', 'qi', 'yo', 'par', 'Bâng'], 'Bâng par ỹi.');
+// - The friendly man
+const S43Q3 = new MCVocabularyQuestion('The friendly man', ['Ca bâng nuơ', 'Ca bânge nuơ', 'Ca bânge nuơ phú', 'Ca bânga'], 2);
+// - The friendly woman
+const S43Q4 = new MCVocabularyQuestion('The friendly woman', ['Ca bâng nuơ phú', 'Ca bânge nuơ', 'Ca bânge nuơ phú', 'Ca bânge phú'], 3);
+// - The friendly child
+const S43Q5 = new MCVocabularyQuestion('The friendly child', ['Ca bâng nuơ chí', 'Ca bânge nuơ chí', 'Ca bânge nuơ chí phú', 'Ca bânge chí'], 4);
+// - You are friendly
+const S43Q6 = new AssemblingTranslationQuestion('You are friendly', ['Cor', 'táy', 'bâng', 'ỹi', 'Ỹia', 'Táy', 'qi', 'yo', 'par', 'Bânge', 'bânge'], 'Táy qi bânge.');
+// end friends
+// food 5
+// - The apple
+const S44Q1 = new MCVocabularyQuestion('The apple', ['Ca ápol', 'Ca ápole', 'Ca tuo', 'Ca noug'], 1);
+// - The pear
+const S44Q2 = new MCVocabularyQuestion('The pear', ['Ca pír', 'Ca pí', 'Ca píra', 'Ca píe'], 1);
+// - The banana
+const S44Q3 = new MCVocabularyQuestion('The banana', ['Ca tung', 'Ca tong', 'Ca chung', 'Ca ching'], 1);
+// - The child eats the food
+const S44Q4 = new AssemblingTranslationQuestion('The child eats the food', ['Ca', 'chí', 'táy', 'kong', 'ca', 'ỹi', 'Ỹia', 'Táy', 'qi', 'yo', 'par', 'ana', 'bânge', 'fúd'], 'Ca chí ana ca fúd.');
+// - The toilet
+const S44Q5 = new MCVocabularyQuestion('The toilet', ['Ca lery zút', 'Ca lea zút', 'Ca lery zut', 'Ca tôl ca'], 1);
+// - The bathroom
+const S44Q6 = new MCVocabularyQuestion('The bathroom', ['Ca lery', 'Ca lerry', 'Ca lery nuơ', 'Ca lery phú'], 1);
+// end food 5
+
 const SIMPLE_WORDS = new LessonInformation('Simple Words', [SQ1, SQ2, SQ3, SQ4, SQ5, SQ6]);
 const SIMPLE_WORDS_2 = new LessonInformation('Simple Words 2', [S2Q1, S2Q2, S2Q3, S2Q4, S2Q5, S2Q6]);
 const FAMILY = new LessonInformation('Family', [S3Q1, S3Q2, S3Q3, S3Q4, S3Q5, S3Q6]);
@@ -1282,15 +1475,25 @@ const HARD_SENTENCES_5 = new LessonInformation('Hard Sentences 5', [S33Q1, S33Q2
 const HARD_SENTENCES_6 = new LessonInformation('Hard Sentences 6', [S34Q1, S34Q2, S34Q3, S34Q4, S34Q5, S34Q6]);
 const LONG_SENTENCES = new LessonInformation('Long Sentences', [S35Q1, S35Q2, S35Q3, S35Q4, S35Q5, S35Q6]);
 const LONG_SENTENCES_2 = new LessonInformation('Long Sentences 2', [S36Q1, S36Q2, S36Q3, S36Q4, S36Q5, S36Q6]);
+const BIRTHDAY = new LessonInformation('Birthday', [S37Q1, S37Q2, S37Q3, S37Q4, S37Q5, S37Q6]);
+const TIME = new LessonInformation('Time', [S38Q1, S38Q2, S38Q3, S38Q4, S38Q5, S38Q6]);
+const DIFFICULT_SENTENCES = new LessonInformation('Difficult Sentences', [S39Q1, S39Q2, S39Q3, S39Q4, S39Q5, S39Q6]);
+const USEFUL_SENTENCES = new LessonInformation('Useful Sentences', [S40Q1, S40Q2, S40Q3, S40Q4, S40Q5, S40Q6]);
+const USEFUL_SENTENCES_2 = new LessonInformation('Useful Sentences 2', [S41Q1, S41Q2, S41Q3, S41Q4, S41Q5, S41Q6]);
+const FOOD_4 = new LessonInformation('Food 4', [S42Q1, S42Q2, S42Q3, S42Q4, S42Q5, S42Q6]);
+const FRIENDS = new LessonInformation('Friends', [S43Q1, S43Q2, S43Q3, S43Q4, S43Q5, S43Q6]);
+const FOOD_5 = new LessonInformation('Food 5', [S44Q1, S44Q2, S44Q3, S44Q4, S44Q5, S44Q6]);
 
 var CURRENT_LESSON = new LessonInformation('NULL', []);
 const lessons = [SIMPLE_WORDS, SIMPLE_WORDS_2, FAMILY, FAMILY_2, FOOD, FOOD_2, SIMPLE_SENTENCES, GENERAL_SENTENCES,
     GENERAL_SENTENCES_2, SIMPLE_WORDS_3, GENERAL_SENTENCES_3, GENERAL_SENTENCES_4, HARD_SENTENCES,
     HARD_SENTENCES_2, DAILY_LIFE, GENERAL_ANSWERS, GENERAL_ANSWERS_2, GREETINGS, GREETINGS_2, LANGUAGES,
     LANGUAGES_2, NUMBERS_1, NUMBERS_2, NUMBERS_3, PEOPLE, CLOTHES, ANIMALS, COLORS, FOOD_3, HARD_SENTENCES_3,
-    HARD_SENTENCES_4, COMPUTERS, HARD_SENTENCES_5, HARD_SENTENCES_6, LONG_SENTENCES, LONG_SENTENCES_2
-    ];
+    HARD_SENTENCES_4, COMPUTERS, HARD_SENTENCES_5, HARD_SENTENCES_6, LONG_SENTENCES, LONG_SENTENCES_2,
+    BIRTHDAY, TIME, DIFFICULT_SENTENCES, USEFUL_SENTENCES, USEFUL_SENTENCES_2, FOOD_4, FRIENDS,
+    FOOD_5]; 
 ReactDOM.render(
     <AppDisplay />,
     document.getElementById('root')
 );
+
