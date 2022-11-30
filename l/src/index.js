@@ -920,7 +920,7 @@ class LessonDisplay extends React.Component {
     render() {
         if ((this.state.questionNumber - 1) === CURRENT_LESSON.questionsArray.length) {
             var oldValue = getCookie("level");
-            setCookie("level", ++oldValue, 1);
+            setCookie("level", ++oldValue, 31);
             return (<AppDisplay />);
         }
         const currentQuestion = CURRENT_LESSON.questionsArray[(this.state.questionNumber - 1)];
@@ -979,7 +979,7 @@ class LessonSelectionDisplay extends React.Component {
     constructor(props) {
         super(props);
         if (getCookie("level") == "") {
-            document.cookie = "level=0";
+            setCookie("level", 0, 31);
         }
         this.handleClickLesson = this.handleClickLesson.bind(this);
     }
@@ -1464,10 +1464,25 @@ const S44Q3 = new MCVocabularyQuestion('The banana', ['Ca tung', 'Ca tong', 'Ca 
 // - The child eats the food
 const S44Q4 = new AssemblingTranslationQuestion('The child eats the food', ['Ca', 'chí', 'táy', 'kong', 'ca', 'ỹi', 'Ỹia', 'Táy', 'qi', 'yo', 'par', 'ana', 'bânge', 'fúd'], 'Ca chí ana ca fúd.');
 // - The toilet
-const S44Q5 = new MCVocabularyQuestion('The toilet', ['Ca lery zút', 'Ca lea zút', 'Ca lery zut', 'Ca tôl ca'], 1);
+const S44Q5 = new MCVocabularyQuestion('The toilet', ['Ca ley zút', 'Ca lea zút', 'Ca ley zut', 'Ca tôl ca'], 1);
 // - The bathroom
-const S44Q6 = new MCVocabularyQuestion('The bathroom', ['Ca lery', 'Ca lerry', 'Ca lery nuơ', 'Ca lery phú'], 1);
+const S44Q6 = new MCVocabularyQuestion('The bathroom', ['Ca ley', 'Ca lerry', 'Ca ley nuơ', 'Ca ley phú'], 1);
 // end food 5
+// vehicles
+// - The car
+const S45Q1 = new MCVocabularyQuestion('The car', ['Ca ká', 'Ca kál', 'Ca xao ká', 'Ca ká phú'], 1);
+// - The bike
+const S45Q2 = new MCVocabularyQuestion('The bike', ['Ca xao py', 'Ca py', 'Ca pyh', 'Ca piel'], 1);
+// - I ride the bike
+const S45Q3 = new AssemblingTranslationQuestion('I ride the bike', ['Táy', 'kong', 'ca', 'ỹi', 'Ỹia', 'Táy', 'qi', 'yo', 'par', 'py', 'xao', 'pyh', 'fôy'], 'Ỹia fôy ca xao py.');
+// - The bus
+const S45Q4 = new MCVocabularyQuestion('The bus', ['Ca bús', 'Ca búh', 'Ca búh phú', 'Ca bús phú'], 1);
+// - The helicopter
+const S45Q5 = new MCVocabularyQuestion('The helicopter', ['Ca wáin', 'Ca xao wáin', 'Ca wáin pho', 'Ca pho wáin'], 4);
+// - I like to drive a car
+const S45Q6 = new AssemblingTranslationQuestion('I like to drive a car', ['Táy', 'con', 'ca', 'se', 'Ỹia', 'Táy', 'qi', 'yo', 'par', 'ká', 'xao', 'ká', 'tigh', 'fôy'], 'Ỹia tigh se fôy con ká.');
+// end vehicles
+
 
 const SIMPLE_WORDS = new LessonInformation('Simple Words', [SQ1, SQ2, SQ3, SQ4, SQ5, SQ6]);
 const SIMPLE_WORDS_2 = new LessonInformation('Simple Words 2', [S2Q1, S2Q2, S2Q3, S2Q4, S2Q5, S2Q6]);
@@ -1513,6 +1528,7 @@ const USEFUL_SENTENCES_2 = new LessonInformation('Useful Sentences 2', [S41Q1, S
 const FOOD_4 = new LessonInformation('Food 4', [S42Q1, S42Q2, S42Q3, S42Q4, S42Q5, S42Q6]);
 const FRIENDS = new LessonInformation('Friends', [S43Q1, S43Q2, S43Q3, S43Q4, S43Q5, S43Q6]);
 const FOOD_5 = new LessonInformation('Food 5', [S44Q1, S44Q2, S44Q3, S44Q4, S44Q5, S44Q6]);
+const VEHICLES = new LessonInformation('Vehicles', [S45Q1, S45Q2, S45Q3, S45Q4, S45Q5, S45Q6]);
 
 var CURRENT_LESSON = new LessonInformation('NULL', []);
 const lessons = [SIMPLE_WORDS, SIMPLE_WORDS_2, FAMILY, FAMILY_2, FOOD, FOOD_2, SIMPLE_SENTENCES, GENERAL_SENTENCES,
@@ -1521,7 +1537,7 @@ const lessons = [SIMPLE_WORDS, SIMPLE_WORDS_2, FAMILY, FAMILY_2, FOOD, FOOD_2, S
     LANGUAGES_2, NUMBERS_1, NUMBERS_2, NUMBERS_3, PEOPLE, CLOTHES, ANIMALS, COLORS, FOOD_3, HARD_SENTENCES_3,
     HARD_SENTENCES_4, COMPUTERS, HARD_SENTENCES_5, HARD_SENTENCES_6, LONG_SENTENCES, LONG_SENTENCES_2,
     BIRTHDAY, TIME, DIFFICULT_SENTENCES, USEFUL_SENTENCES, USEFUL_SENTENCES_2, FOOD_4, FRIENDS,
-    FOOD_5]; 
+    FOOD_5, VEHICLES]; 
 ReactDOM.render(
     <AppDisplay />,
     document.getElementById('root')
