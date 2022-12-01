@@ -122,6 +122,8 @@
             {"to", ("se", "default")},
             {"are", ("qi", "default")},
             {"can", ("áqia", "default")},
+            {"learn", ("hõb", "default")},
+            {"learning", ("hõb", "default")},
             {"want", ("muõ", "default")},
             {"just", ("zoa", "default")},
             {"follow", ("õray", "default")},
