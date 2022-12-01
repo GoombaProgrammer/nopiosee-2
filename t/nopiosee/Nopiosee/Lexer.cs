@@ -108,6 +108,7 @@
             {"on", ("lá", "default")},
             {"vietnam", ("viet nam", "default")},
             {"vietnamese", ("teing viet", "default")},
+            {"japanese", ("teing japan", "default")},
             {"bread", ("bana mí", "default")},
             {"cake", ("bana", "default")},
             {"milk", ("bana sua", "default")},
