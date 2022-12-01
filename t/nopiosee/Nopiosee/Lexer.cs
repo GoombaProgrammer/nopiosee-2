@@ -121,6 +121,7 @@
             {"talking", ("gritál", "default")},
             {"word", ("ánáy", "default")},
             {"to", ("se", "default")},
+            {"too", ("se", "default")},
             {"are", ("qi", "default")},
             {"can", ("áqia", "default")},
             {"learn", ("hõb", "default")},
